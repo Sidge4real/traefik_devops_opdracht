@@ -1,0 +1,18 @@
+services:
+  traefik:
+    image: "traefik:v3.2"
+    container_name: "traefik"
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./etc/traefik/traefik.yml:/etc/traefik/traefik.yml"
+    labels:
+      - "traefik.http.routers.traefik.rule=Host(`traefik.lukasvanderspiegel.be`)"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+networks:
+  default:
+    name: traefik
