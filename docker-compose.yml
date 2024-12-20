@@ -12,7 +12,10 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.lukasvanderspiegel.be`)"
       - "traefik.http.routers.traefik.tls.certresolver=myresolver"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+    networks:
+      - proxy
 
 networks:
-  default:
+  proxy:
+    external: true
     name: traefik
